@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<body>
+    <form action="/decoder" method="POST">
+        <input type="text" name="encoded" placeholder="Enter a string" />
+        <button type="submit" name="action" value="decode">Decode</button>
+        <button type="submit" name="action" value="encode">Encode</button>
+    </form>
+    <pre>{{ .OutputDecode}}</pre>
+    <p>Status: {{ .StatusDecode}}</p>
+</body>
+</html>
