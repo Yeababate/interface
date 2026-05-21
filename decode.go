@@ -52,5 +52,10 @@ func decoder(input string) (string, bool) {
 			output += string(input[i])
 		}
 	}
+	for _, v:= range output{
+		if v == ']' || v == '['{
+			return output, false
+		}
+	}
 	return output, true
 }

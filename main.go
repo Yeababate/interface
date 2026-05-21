@@ -33,6 +33,7 @@ func decoderHandler(w http.ResponseWriter, r *http.Request) {
 	if action == "decode" {
 		result,ok := decoder(input)
 		if !ok {
+			result = ""
 			status = http.StatusBadRequest
 		}else {
 			status = http.StatusAccepted
