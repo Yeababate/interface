@@ -30,7 +30,8 @@ func decoderHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	input := r.FormValue("encoded")
 	action := r.FormValue("action")
-	if action == "decode" {
+	switch action {
+	case "decode":
 		result,ok := decoder(input)
 		if !ok {
 			result = ""
@@ -40,7 +41,7 @@ func decoderHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		data := Data{OutputDecode: result, StatusDecode: status}
 		tmpl.Execute(w, data)
-	}else if action == "encode" {
+	case "encode":
 		result,ok := encoder(input)
 		if !ok {
 			status = http.StatusBadRequest
