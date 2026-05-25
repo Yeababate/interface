@@ -1,11 +1,47 @@
 <!DOCTYPE html>
-<body>
-    <form action="/decoder" method="POST">
-        <input type="text" name="encoded" placeholder="Enter a string" />
-        <button type="submit" name="action" value="decode">Decode</button>
-        <button type="submit" name="action" value="encode">Encode</button>
-    </form>
-    <pre>{{ .OutputDecode}}</pre>
-    <p>Status: {{ .StatusDecode}}</p>
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 items-center justify-center p-8">
+
+    <div class="bg-gray-800 rounded-xl p-6 w-full gap-4">
+
+        <h1 class="text-xl font-bold text-white">ART Encoder / Decoder</h1>
+
+        <form action="/art" method="POST" class="flex flex-col gap-3">
+            <textarea
+                style="white-space: pre-wrap;"
+                name="artToCode"
+                placeholder="Enter a string"
+                class="bg-gray-700 text-white rounded-lg"
+                oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
+            ></textarea>
+            <div class="flex gap-2 py-1"> 
+                <button
+                    type="submit" name="action" value="decode"
+                    class="flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+                >
+                    Decode
+                </button>
+                <button
+                    type="submit" name="action" value="encode"
+                    class="flex-1 bg-violet-600 hover:bg-violet-700 text-white rounded-lg"
+                >
+                    Encode
+                </button>
+            </div>
+        </form>
+
+        <form class="flex flex-col">
+            <div 
+                class="bg-gray-700 text-white rounded-lg px-6 py-4 overflow-auto"
+            >
+            <pre class="font-mono text-white-400">{{ .OutputDecode }}</pre>
+            </div>
+            <p class="text-gray-400">Status: {{ .StatusDecode}}</p>
+        </form>
+
+    </div>
 </body>
 </html>

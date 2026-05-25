@@ -1,5 +1,6 @@
 package main
-import ( 
+import (
+	"fmt"
 	"net/http"
 	"html/template"
 )
@@ -8,27 +9,22 @@ var tmpl = template.Must(template.ParseFiles("templates/index.html"))
 type Data struct {
 	OutputDecode string
 	StatusDecode int
-	OutputEncode string
-	StatusEncode int
+
 }
 
 func main() {
-	http.HandleFunc("/", homeHandler)
-	http.HandleFunc("/decoder", decoderHandler)
-	// http.HandleFunc("/encoder", encoderHandler)
-	http.ListenAndServe(":8080", nil)
+	mux := http.NewServeMux()
+	mux.HandleFunc("GET /", homeHandler)
+	mux.HandleFunc("POST /art", codehandler)
+	http.ListenAndServe(":8080", mux)
 }
 func homeHandler(w http.ResponseWriter, r *http.Request) {
     tmpl.Execute(w, Data{})
 }
-func decoderHandler(w http.ResponseWriter, r *http.Request) {
+func codehandler(w http.ResponseWriter, r *http.Request) {
 	var status int
-	if r.Method != http.MethodPost {
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		return
-	}
 	r.ParseForm()
-	input := r.FormValue("encoded")
+	input := r.FormValue("artToCode")
 	action := r.FormValue("action")
 	switch action {
 	case "decode":
@@ -40,15 +36,20 @@ func decoderHandler(w http.ResponseWriter, r *http.Request) {
 			status = http.StatusAccepted
 		}
 		data := Data{OutputDecode: result, StatusDecode: status}
+		fmt.Println(data)
+		w.WriteHeader(status)
 		tmpl.Execute(w, data)
 	case "encode":
 		result,ok := encoder(input)
 		if !ok {
+			result = ""
 			status = http.StatusBadRequest
 		}else {
 			status = http.StatusAccepted
 		}
 		data := Data{OutputDecode: result, StatusDecode: status}
+		fmt.Println(data)
+		w.WriteHeader(status)
 		tmpl.Execute(w, data)
 	}
 }
