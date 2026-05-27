@@ -23,31 +23,25 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 func codehandler(w http.ResponseWriter, r *http.Request) {
 	var status int
-	r.ParseForm()
+
 	input := r.FormValue("artToCode")
 	action := r.FormValue("action")
-	switch action {
-	case "decode":
-		result,ok := decoder(input)
-		if !ok {
-			result = ""
-			status = http.StatusBadRequest
-		}else {
-			status = http.StatusAccepted
-		}
-		data := Data{ArtToCode: input, Output: result, OutputStatus: status}
-		w.WriteHeader(status)
-		tmpl.Execute(w, data)
-	case "encode":
-		result,ok := encoder(input)
-		if !ok {
-			result = ""
-			status = http.StatusBadRequest
-		}else {
-			status = http.StatusAccepted
-		}
-		data := Data{ArtToCode: input, Output: result, OutputStatus: status}
-		w.WriteHeader(status)
-		tmpl.Execute(w, data)
+
+	var operation func (input string)(string, bool)
+	if action == "decode" {
+		operation = decoder
+	}else if action == "encode" {
+		operation = encoder
 	}
+	result, ok := operation(input)
+	if !ok {
+		result = ""
+		status = http.StatusBadRequest
+	}else {
+		status = http.StatusAccepted
+	}
+	data := Data{ArtToCode: input, Output: result, OutputStatus: status}
+	w.WriteHeader(status)
+	tmpl.Execute(w, data)
+
 }
