@@ -4,19 +4,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 items-center justify-center p-8">
-
+    <dialog {{ if eq .OutputStatus 400 }}open{{ end }}
+            class="bg-gray-800 text-white rounded-xl p-6">
+        <p class="text-red-400">Invalid input</p>
+        <button onclick="this.closest('dialog').close()"
+                class="mt-4 bg-red-600 text-white rounded-lg px-4 py-2">
+            Close
+        </button>
+    </dialog>
     <div class="bg-gray-800 rounded-xl p-6 w-full gap-4">
 
         <h1 class="text-xl font-bold text-white">ART Encoder / Decoder</h1>
 
         <form action="/art" method="POST" class="flex flex-col gap-3">
             <textarea
-                style="white-space: pre-wrap;"
                 name="artToCode"
                 placeholder="Enter a string"
-                class="bg-gray-700 text-white rounded-lg"
-                oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
-            ></textarea>
+                class="bg-gray-700 text-white rounded-lg px-3 py-2 font-mono"
+                style="field-sizing: content; min-height:80px;"
+            >{{ .ArtToCode }}</textarea>
             <div class="flex gap-2 py-1"> 
                 <button
                     type="submit" name="action" value="decode"
@@ -37,9 +43,9 @@
             <div 
                 class="bg-gray-700 text-white rounded-lg px-6 py-4 overflow-auto"
             >
-            <pre class="font-mono text-white-400">{{ .OutputDecode }}</pre>
+            <pre class="font-mono text-grey-400">{{ .Output }}</pre>
             </div>
-            <p class="text-gray-400">Status: {{ .StatusDecode}}</p>
+            <p class="text-white">Status: {{ .OutputStatus}}</p>
         </form>
 
     </div>

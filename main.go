@@ -1,15 +1,15 @@
 package main
 import (
-	"fmt"
 	"net/http"
 	"html/template"
 )
 
 var tmpl = template.Must(template.ParseFiles("templates/index.html"))
 type Data struct {
-	OutputDecode string
-	StatusDecode int
-
+	Output string
+	OutputStatus int
+	ArtToCode string
+	
 }
 
 func main() {
@@ -35,8 +35,7 @@ func codehandler(w http.ResponseWriter, r *http.Request) {
 		}else {
 			status = http.StatusAccepted
 		}
-		data := Data{OutputDecode: result, StatusDecode: status}
-		fmt.Println(data)
+		data := Data{ArtToCode: input, Output: result, OutputStatus: status}
 		w.WriteHeader(status)
 		tmpl.Execute(w, data)
 	case "encode":
@@ -47,8 +46,7 @@ func codehandler(w http.ResponseWriter, r *http.Request) {
 		}else {
 			status = http.StatusAccepted
 		}
-		data := Data{OutputDecode: result, StatusDecode: status}
-		fmt.Println(data)
+		data := Data{ArtToCode: input, Output: result, OutputStatus: status}
 		w.WriteHeader(status)
 		tmpl.Execute(w, data)
 	}

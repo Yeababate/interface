@@ -23,6 +23,9 @@ func countRepeats(input string, start int, unit string) int{
 }
 func encoder(input string) (string , bool){
 	output := ""
+	if input == "" || len(input) > 100_000 {
+		return output, false
+	}
 	for _, v:= range input{
 		if v == ']' || v == '['{
 			return output, false

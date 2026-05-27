@@ -9,7 +9,9 @@ import (
 func decoder(input string) (string, bool) {
 	var store, output, rep string
 	var i,j,k int
-	
+	if input == "" {
+		return output, false
+	}
 	for i = 0; i < len(input); i++{
 		if input[i] == '[' {
 			if !unicode.IsDigit(rune(input[i+1])) {
@@ -25,6 +27,10 @@ func decoder(input string) (string, bool) {
 				store += string(input[j])
 				} else if input[j] == ' ' {
 					length, err := strconv.Atoi(store)
+					if length > 100_000 {
+						output = ""
+						return output, false
+					}
 					if err != nil {
 						fmt.Printf("Error converting to number\n")
 						return output,false
@@ -37,6 +43,10 @@ func decoder(input string) (string, bool) {
 							i = k
 							break
 						}
+					}
+					if len(rep) * length > 1_000_000 {
+						output = ""
+						return output, false
 					}
 					output += strings.Repeat(rep, length )
 					length = 0
