@@ -43,5 +43,4 @@ func codehandler(w http.ResponseWriter, r *http.Request) {
 	data := Data{ArtToCode: input, Output: result, OutputStatus: status}
 	w.WriteHeader(status)
 	tmpl.Execute(w, data)
-
 }

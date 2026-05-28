@@ -5,43 +5,43 @@
 </head>
 <body class="bg-gray-900 items-center justify-center p-8">
     <dialog {{ if eq .OutputStatus 400 }}open{{ end }}
-            class="bg-gray-800 text-white rounded-xl p-6">
+            class="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-800 text-white rounded-xl p-6 m-0">
         <p class="text-red-400">Invalid input</p>
         <button onclick="this.closest('dialog').close()"
-                class="mt-4 bg-red-600 text-white rounded-lg px-4 py-2">
+            class="mt-4 bg-red-600 text-white rounded-lg px-4 py-2">
             Close
         </button>
     </dialog>
     <div class="bg-gray-800 rounded-xl p-6 w-full gap-4">
 
-        <h1 class="text-xl font-bold text-white text-center">ART Encoder / Decoder</h1>
+        <h1 class="text-2xl font-bold text-indigo-400 text-center px-4 py-4">ART Encoder / Decoder</h1>
 
         <form action="/art" method="POST" class="flex flex-col gap-3">
             <textarea
                 name="artToCode"
-                placeholder="Enter a string"
-                class="bg-gray-700 text-white rounded-lg px-3 py-2 font-mono"
-                style="field-sizing: content; min-height:80px;"
+                placeholder="Enter a decoded/encoded string"
+                class="bg-gray-700 text-white rounded-lg px-6 py-6 font-mono"
+                style="field-sizing: content; min-height:100px;"
             >{{ .ArtToCode }}</textarea>
             <div class="flex gap-2 py-1"> 
                 <button
                     type="submit" name="action" value="decode"
-                    class="flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+                    class="bg-blue-600 hover:bg-blue-800 text-white rounded-lg py-2 px-3"
                 >
                     Decode
                 </button>
                 <button
                     type="submit" name="action" value="encode"
-                    class="flex-1 bg-violet-600 hover:bg-violet-700 text-white rounded-lg"
+                    class="bg-violet-600 hover:bg-violet-800 text-white rounded-lg py-2 px-3"
                 >
                     Encode
                 </button>
             </div>
         </form>
 
-        <form class="flex flex-col">
+        <form class="flex flex-col py-4">
             <div 
-                class="bg-gray-700 text-white rounded-lg px-6 py-4 overflow-auto"
+                class="bg-gray-700 text-white rounded-lg px-6 py-6 overflow-auto"
             >
             <pre class="font-mono text-grey-400">{{ .Output }}</pre>
             </div>
