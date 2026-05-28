@@ -13,8 +13,6 @@ A web interface for encoding and decoding text-based art strings. Built with Go 
 - [Usage](#usage)
 - [Endpoints](#endpoints)
 - [Project Structure](#project-structure)
-- [Notes](#notes)
-
 ---
 
 ## Overview
