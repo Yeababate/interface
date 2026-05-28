@@ -13,11 +13,13 @@ A web interface for encoding and decoding text-based art strings. Built with Go 
 - [Usage](#usage)
 - [Endpoints](#endpoints)
 - [Project Structure](#project-structure)
+- [Notes](#notes)
+
 ---
 
 ## Overview
 
-ART Interface is a web application that wraps the ART encoder/decoder in a clean, browser-based interface. Instead of using the command line, artists can paste their encoded strings into a text box, click a button, and instantly see the resulting artwork — no terminal knowledge required.
+ART Interface is a web application that wraps the ART encoder/decoder in a clean, browser-based interface. Instead of using the command line, artists can paste their encoded strings into a text box, click a button, and instantly see the resulting artwork.
 
 The server is written in Go and uses Go's `html/template` package to render the interface. Tailwind CSS is loaded via CDN for styling.
 
@@ -37,7 +39,6 @@ Clone the repository and navigate into it:
 git clone https://gitea.kood.tech/yeabsiraabateguangul/interface.git
 cd interface
 ```
-
 
 ---
 
@@ -64,6 +65,8 @@ http://localhost:8080
 5. The result is displayed below the input along with the HTTP status code
 
 If your input is invalid, a dialog will appear on screen with an error message. Your input is preserved so you can correct it without retyping.
+
+
 
 ---
 
@@ -107,3 +110,8 @@ art-interface/
 **`templates/index.html`** — the web interface. Uses Go template syntax (`{{ .Output }}`, `{{ .OutputStatus }}` etc.) to display results returned by the server.
 
 ---
+
+## Notes
+
+- All encoding and decoding logic runs **server-side** — nothing is computed in the browser
+- The encoder only supports characters that repeat **1 or 2 times**
