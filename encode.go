@@ -19,8 +19,8 @@ func countRepeats(input string, start int, unit string) int{
 		}
 	}
 	return count
-
 }
+
 func encoder(input string) (string , bool){
 	output := ""
 	if input == "" || len(input) > 100_000 {
@@ -55,6 +55,5 @@ func encoder(input string) (string , bool){
 		}
 		i += count * len(unit)
 	}
-
 	return output, true
 }

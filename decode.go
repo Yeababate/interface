@@ -1,6 +1,5 @@
 package main
 import (
-"fmt"
 "strconv"
 "strings"
 "unicode"
@@ -15,13 +14,11 @@ func decoder(input string) (string, bool) {
 	for i = 0; i < len(input); i++{
 		if input[i] == '[' {
 			if !unicode.IsDigit(rune(input[i+1])) {
-				fmt.Println("The first arg should be number")
 				return output, false
 			}
 			for j = i+1; j < len(input); j++ {
 				if unicode.IsDigit(rune(input[j])) {
-					if !unicode.IsDigit(rune(input[j+1])) && input[j+1] != ' ' {
-						fmt.Println("There should be space between the arguments")    
+					if !unicode.IsDigit(rune(input[j+1])) && input[j+1] != ' ' {    
 						return output, false
 					}    
 				store += string(input[j])
@@ -32,7 +29,6 @@ func decoder(input string) (string, bool) {
 						return output, false
 					}
 					if err != nil {
-						fmt.Printf("Error converting to number\n")
 						return output,false
 					}
 					for k = j+1; k < len(input); k++{

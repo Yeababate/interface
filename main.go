@@ -3,13 +3,11 @@ import (
 	"net/http"
 	"html/template"
 )
-
 var tmpl = template.Must(template.ParseFiles("templates/index.html"))
 type Data struct {
 	Output string
 	OutputStatus int
 	ArtToCode string
-	
 }
 
 func main() {
@@ -18,16 +16,18 @@ func main() {
 	mux.HandleFunc("POST /art", codehandler)
 	http.ListenAndServe(":8080", mux)
 }
+
 func homeHandler(w http.ResponseWriter, r *http.Request) {
     tmpl.Execute(w, Data{})
 }
+
 func codehandler(w http.ResponseWriter, r *http.Request) {
 	var status int
 
 	input := r.FormValue("artToCode")
 	action := r.FormValue("action")
-
 	var operation func (input string)(string, bool)
+	
 	if action == "decode" {
 		operation = decoder
 	}else if action == "encode" {
