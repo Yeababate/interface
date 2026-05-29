@@ -1,5 +1,6 @@
 package main
 import (
+	"fmt"
 	"net/http"
 	"html/template"
 )
@@ -14,6 +15,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", homeHandler)
 	mux.HandleFunc("POST /art", codehandler)
+	fmt.Println("server running at http://localhost:8080")
 	http.ListenAndServe(":8080", mux)
 }
 
