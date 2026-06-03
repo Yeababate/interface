@@ -112,6 +112,4 @@ art-interface/
 ---
 
 ## Notes
-
-- All encoding and decoding logic runs **server-side** — nothing is computed in the browser
 - The encoder only supports characters that repeat **1 or 2 times**
