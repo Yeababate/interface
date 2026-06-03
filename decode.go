@@ -40,7 +40,7 @@ func decoder(input string) (string, bool) {
 							break
 						}
 					}
-					if len(rep) * length > 1_000_000 {
+					if len(rep) * length > 1_000_000 || rep == ""{
 						output = ""
 						return output, false
 					}
