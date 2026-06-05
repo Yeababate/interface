@@ -8,7 +8,7 @@ var tmpl = template.Must(template.ParseFiles("templates/index.html"))
 type Data struct {
 	Output string
 	OutputStatus int
-	ArtToCode string
+	Input string
 }
 
 func main() {
@@ -20,13 +20,17 @@ func main() {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w,r)
+		return
+	}
     tmpl.Execute(w, Data{})
 }
 
 func codehandler(w http.ResponseWriter, r *http.Request) {
 	var status int
 
-	input := r.FormValue("artToCode")
+	input := r.FormValue("input")
 	action := r.FormValue("action")
 	var operation func (input string)(string, bool)
 	
@@ -42,7 +46,6 @@ func codehandler(w http.ResponseWriter, r *http.Request) {
 	}else {
 		status = http.StatusAccepted
 	}
-	data := Data{ArtToCode: input, Output: result, OutputStatus: status}
 	w.WriteHeader(status)
-	tmpl.Execute(w, data)
+	tmpl.Execute(w, Data{Input: input, Output: result, OutputStatus: status})
 }

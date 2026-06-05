@@ -18,11 +18,12 @@
         <h4 class="text-white italic px-2 py-3">The easiest way to encode and decode text-based art strings. Paste your input, choose an action, and get your result instantly</h4>
         <form action="/art" method="POST" class="flex flex-col gap-3">
             <textarea
-                name="artToCode"
+                name="input"
                 placeholder="Enter a decoded/encoded string"
                 class="bg-gray-700 text-white rounded-lg px-6 py-6 font-mono"
                 style="field-sizing: content; min-height:100px;"
-            >{{ .ArtToCode }}</textarea>
+                required
+            >{{ .Input }}</textarea>
             <div class="flex gap-2 py-1"> 
                 <button
                     type="submit" name="action" value="decode"
